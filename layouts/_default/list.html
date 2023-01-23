@@ -11,18 +11,26 @@
 		{{ else }}
 		<h2 class="page-title">{{ .Name }}</h2>
 		{{ end }}
-		
+
 		{{ .Content }}
 
 		<ul class="posts flat">
-			{{- range .Site.Pages -}}
-			{{- if (in (.Site.Params.excludedTypes | default (slice "page")) .Type) -}}
-			{{- else -}}
-			<li class="post">
-				{{ partial "post-preview.html" . }}
-			</li>
-			{{- end -}}
-			{{- end -}}
+			{{ if or .IsHome .Site.Params.paginate_categories }}
+				{{ $paginator := .Paginate (where .Pages.ByDate.Reverse "Type" "post") }}
+				{{ $list := $paginator.Pages }}
+				{{ range $list  }}
+					<li class="post">
+						{{ partial "post-preview.html" . }}
+					</li>
+				{{ end }}
+			{{ else }}
+				{{ $list := where .Pages.ByDate.Reverse "Type" "post" }}
+				{{ range $list  }}
+					<li class="post">
+						{{ partial "post-preview.html" . }}
+					</li>
+				{{ end }}
+			{{ end }}
 		</ul>
 	</div>
 
