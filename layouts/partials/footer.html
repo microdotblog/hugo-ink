@@ -9,3 +9,7 @@
 {{- with .Site.Params.Social -}}
 <script>feather.replace()</script>
 {{- end -}}
+
+{{ range .Site.Params.plugins_js }}
+	<script src="{{ . }}"></script>
+{{ end }}
