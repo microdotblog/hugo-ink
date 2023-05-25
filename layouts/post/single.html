@@ -10,16 +10,18 @@
 				{{ if ne .Date.Year 1 }}
 					<div class="meta">
 						<div class="date">
-							<time class="day dt-published" datetime="{{ .Date.Format "2006-01-02 15:04:05 -0700" }}">{{ dateFormat "02" .Date }}</time>
+							<a href="{{ .RelPermalink }}" class="u-url"><time class="day dt-published" datetime="{{ .Date.Format "2006-01-02 15:04:05 -0700" }}">{{ dateFormat "02" .Date }}</time></a>
 							<span class="rest">{{ if $.Site.Data.month }}{{ index $.Site.Data.month (printf "%d" .Date.Month) }} {{ .Date.Year }}{{ else }}{{ dateFormat "Jan 2006" .Date }}{{ end }}</span>
 						</div>
 					</div>
 				{{ end }}
-				<div class="matter">
-					<h1 class="title p-name">{{ .Title }}</h1>
-				</div>
+				{{ if .Title }}
+					<div class="matter">
+						<h1 class="title p-name">{{ .Title }}</h1>
+					</div>
+				{{ end }}
 			</div>
-					
+
 			<div class="markdown e-content">
 				{{ .Content }}
 			</div>

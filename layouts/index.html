@@ -6,11 +6,11 @@
 		{{ partial "head.html" . }}
 
 		<div class="recent-posts section">
-			<div class="posts">
+			<div class="posts h-feed">
 				{{ $pages := where .Site.Pages.ByDate.Reverse "Type" "post" }}
 				{{ $paginator := .Paginate (where $pages "Params.hidden" "ne" true) }}
 				{{ range $paginator.Pages }}
-					<div class="post">
+					<div class="post h-entry">
 						{{ partial "post-preview.html" . }}
 					</div>
 				{{ end }}
